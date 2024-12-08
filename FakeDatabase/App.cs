@@ -16,7 +16,11 @@ public class App
 
         // Visa info kring mina nya kunder
         DisplayCustomerInformation.ShowAllCustomers(myCustomers);
+        
+        // BONUS! Spectre tables!
+        // DisplayCustomerInformation.ShowAllCustomersSpectre(myCustomers);
 
+        // ==========================================================
         // Övning
         // fr1. Visa alla kunder som heter "Anna"
 

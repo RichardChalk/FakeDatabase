@@ -1,5 +1,6 @@
 ﻿
 using FakeDatabase.Models;
+using Spectre.Console;
 
 namespace FakeDatabase.Display;
 
@@ -27,10 +28,44 @@ public class DisplayCustomerInformation
                 }
 
                 Console.WriteLine("Total kostnad: " + order.CalculateTotal() + " kr");
-                Console.WriteLine("Betalningsdatum: " + order.Invoice.DueDate);
+                Console.WriteLine("Förfallosdatum: " + order.Invoice.DueDate);
                 
             }
             Console.WriteLine("======================================");
         }
     }
+
+    public static void ShowAllCustomersSpectre(List<Customer> myCustomers)
+    {
+        var table = new Spectre.Console.Table();
+        table.Border = Spectre.Console.TableBorder.Double;
+        table.AddColumn("[bold white on green]Ordernummer[/]");
+        table.AddColumn("[blue]Namn[/]");
+        table.AddColumn("[blue]Datum[/]");
+        table.AddColumn("[blue]Produkter[/]");
+        table.AddColumn("[blue]Total kostnad[/]");
+        table.AddColumn("[blue]Förfallodatum[/]");
+
+        foreach (var customer in myCustomers)
+        {
+            foreach (var order in customer.Orders)
+            {
+                var productNames = string
+                    .Join(", ", order.Items
+                    .Select(i => i.ProductName));
+
+                table.AddRow(
+                    order.OrderId.ToString(),
+                    customer.GetFullName(),
+                    order.OrderDate.ToString("yyyy-MM-dd"), 
+                    productNames,
+                    $"{order.CalculateTotal()} kr",
+                    order.Invoice.DueDate.ToString("yyyy-MM-dd")
+                );
+            }
+        }
+
+        Spectre.Console.AnsiConsole.Write(table);
+    }
+
 }
