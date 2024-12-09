@@ -16,7 +16,12 @@ public class App
 
         // Visa info kring mina nya kunder
         DisplayCustomerInformation.ShowAllCustomers(myCustomers);
-        
+
+        // Denna lista är NULL. Den fylls aldrig direkt!
+        // Detta agerar lite annorlunda med EF-Core.
+        // I EF-Core kommer det att finnas data med relevanta foreign keys!
+        var myOrders = DbContext.Orders;
+
         // BONUS! Spectre tables!
         // DisplayCustomerInformation.ShowAllCustomersSpectre(myCustomers);
 
