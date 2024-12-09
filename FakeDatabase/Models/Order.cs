@@ -13,7 +13,7 @@ public class Order
     public List<Product> Items { get; set; } = new List<Product>();
 
     // En order kan ha EN faktura (inte nullable!)
-    // One to many!
+    // One to One!
     public Invoice Invoice { get; set; }
     public decimal CalculateTotal()
     {
